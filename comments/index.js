@@ -7,17 +7,17 @@ app.use(bodyParser.json());
 
 const commentsByPostId = {};
 
-app.get("posts/:id/comments", (req, res) => {
+app.get("/posts/:id/comments", (req, res) => {
   res.send(commentsByPostId[req.params.id] || []);
 });
 
-app.post("posts/:id/comments", (req, res) => {
-  const commentID = randomBytes(4).toString("hex");
+app.post("/posts/:id/comments", (req, res) => {
+  const commentId = randomBytes(4).toString("hex");
   const { content } = req.body;
 
   const comments = commentsByPostId[req.params.id] || [];
 
-  comments.push({ id: commentID, content: content });
+  comments.push({ id: commentId, content: content });
 
   commentsByPostId[req.params.id] = comments;
   res.status(201).send(comments);
